@@ -18,9 +18,9 @@ Yq = quantise(Y,stp,rise);
 Z = colxfm(colxfm(Yq',C')',C');
 
 % uncomment to output info about entropy and bit rates
-ent = DCTentropy(X,N,stp,rise);
+ent = DCTentropy(Yq,N,stp,rise);
 
 % uncomment to give some info about rms error
-error = DCTerror(X,N,stp,rise)
+err = std(Z(:)-X(:))
 
 end

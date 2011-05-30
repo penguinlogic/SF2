@@ -1,12 +1,11 @@
-function ents = DCTentropy(X,N,stp,rise)
+function ents = DCTentropy(Yq,N,stp,rise)
 
 C = dctmat(N);
-Y = colxfm(colxfm(X,C)',C)';
-Yq = quantise(Y,stp,rise);
+
 Yr = regroup(Yq,N);
 
 mean_ent = 0;
-[H W] = size(X);
+[H W] = size(Yq);
 H = H/N;
 W = W/N;
 

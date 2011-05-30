@@ -1,4 +1,5 @@
 function Z = DCTfull(X,N,stp)
+%this doesn't work any more
 
 C = dctmat(N);
 Y = colxfm(colxfm(X,C)',C)';
