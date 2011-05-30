@@ -1,8 +1,8 @@
-function ents = DCTentropy(X,N,stp)
+function ents = DCTentropy(X,N,stp,rise)
 
 C = dctmat(N);
 Y = colxfm(colxfm(X,C)',C)';
-Yq = quantise(Y,stp);
+Yq = quantise(Y,stp,rise);
 Yr = regroup(Yq,N);
 
 mean_ent = 0;
@@ -19,7 +19,7 @@ W = W/N;
 for i = 1:N
    for j = 1:N
        sub_y = Yr((H*(i-1) + 1):(H*i),(W*(j-1) + 1):(W*j));
-       ents(i,j) = entropy(sub_y,stp);
+       ents(i,j) = entropy2(sub_y,stp,rise);
        
        mean_ent = mean_ent + ents(i,j);
    end
@@ -27,8 +27,8 @@ end
 
 
 
-mean_ent = mean_ent / N / N
-simple_ent = entropy(Yr,stp)
-total_bits = mean_ent *H*N*W*N
+mean_ent = mean_ent / N / N;
+%simple_ent = entropy(Yr,stp);
+total_bits = mean_ent *H*N*W*N;
 compression_ratio = 2.2812e5 / total_bits
 end

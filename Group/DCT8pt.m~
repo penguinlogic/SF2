@@ -1,10 +1,9 @@
 function Z = DCT8pt(X)
 
-% transform size
+% set transform size and quantisation step size
 N = 8;
-
-% step size for quantisation
 stp = 24;
+rise = stp;
 
 % form transform matrix
 C = dctmat(N);
@@ -13,16 +12,16 @@ C = dctmat(N);
 Y = colxfm(colxfm(X,C)',C)';
 
 %quantise 
-Yq = quantise(Y,stp);
+Yq = quantise(Y,stp,rise);
 
-
+% reconstruct the image to return
 Z = colxfm(colxfm(Yq',C')',C');
 
+% uncomment to output info about entropy and bit rates
+ent = DCTentropy(X,N,stp,rise);
 
+% uncomment to give some info about rms error
+error = DCTerror(X,N,stp)
 
-
-%ent = DCTentropy(X,N,stp)
-
-%error = DCTerror(X,N,stp)
 
 end
