@@ -1,0 +1,4 @@
+%layers = 5; k = 1; delta = 25;
+%DWT_full(X,layers,DWT_steps(layers,k)*delta);
+
+

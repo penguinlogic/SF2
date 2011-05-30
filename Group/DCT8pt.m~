@@ -1,0 +1,28 @@
+function Z = DCT8pt(X)
+
+% transform size
+N = 8;
+
+% step size for quantisation
+stp = 24;
+
+% form transform matrix
+C = dctmat(N);
+
+% apply transform
+Y = colxfm(colxfm(X,C)',C)';
+
+%quantise 
+Yq = quantise(Y,stp);
+
+
+Z = colxfm(colxfm(Yq',C')',C');
+
+
+
+
+%ent = DCTentropy(X,N,stp)
+
+%error = DCTerror(X,N,stp)
+
+end

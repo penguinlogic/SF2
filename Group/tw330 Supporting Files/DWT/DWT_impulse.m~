@@ -1,0 +1,36 @@
+function std_yd = DWT_impulse(level)
+
+m = 256/(2^(level+1));
+
+Y = zeros(256,256);
+Y(3*m,m) = 100;
+Y(3*m,3*m) = 100;
+Y(m,3*m) = 100;
+
+
+Yd = IDWT_iter(Y,level);
+
+%draw(Yd)
+%contourf(Yd,10)
+
+
+imap=~all(A,2);
+jmap=~all(A,1);
+
+i0=find(imap, 1,'first');
+i1=find(imap, 1,'last');
+
+j0=find(jmap, 1,'first');
+j1=find(jmap, 1,'last');
+
+B=A(i0:i1,j0:j1) 
+
+
+
+
+mesh(Yd)
+
+
+std_yd = std(Yd(:));
+
+end
