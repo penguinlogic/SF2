@@ -1,0 +1,27 @@
+function Y = mdwt (numlevels, X, h1, h2)
+
+m = size(X);
+
+        if numlevels > 0,
+            for i = numlevels : -1 : 1,
+                t = 1:m;
+                Y(t,t) = dwt(Y(t,t));
+                m = m/2;
+            end
+        end
+    end
+
+
+if nargin > 3,
+    if numlevels > 0,
+        Y = dwt(X, h1, h2);
+        
+        if numlevels > 1,
+            for i = numlevels : -1 : 2,
+                m = m/2;
+                t = 1:m;
+                Y(t,t) = dwt(Y(t,t), h1, h2);
+            end
+        end
+    end
+end
