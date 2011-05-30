@@ -1,7 +1,0 @@
-function [Z0, Z1, Z2, Z3] = py4dec(X4, Y0, Y1, Y2, Y3)
-
-h = [0.24, 0.5, 0.25];
-
-X4tmp = rowint(X4,h);
-X4tmp = rowint(X4tmp',h)';
-
