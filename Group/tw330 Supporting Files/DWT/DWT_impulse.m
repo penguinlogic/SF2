@@ -11,7 +11,7 @@ Y(m,3*m) = 100;
 Yd = IDWT_iter(Y,level);
 
 
-contourf(Yd,10)
+%contourf(Yd,10);
 
 
 

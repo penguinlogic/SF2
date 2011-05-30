@@ -9,7 +9,7 @@ Y(m,m) = 100;
 
 Yd = IDWT_iter(Y,level);
 
-draw(Yd)
+%draw(Yd);
 
 std_yd = sqrt(3) * std(Yd(:));
 

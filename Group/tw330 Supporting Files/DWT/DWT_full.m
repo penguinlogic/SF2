@@ -4,7 +4,7 @@ Y = DWT_iter(X,levels);
 [Yq entropy_array total_bits] = DWT_quantise(Y,levels,steps);
 Z = IDWT_iter(Yq, levels);
 
-draw(Z)
+draw(Z);
 
 total_bits
 entropy_array

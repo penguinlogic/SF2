@@ -1,13 +1,13 @@
 function Z = DWTgrp(X)
 
 % set the parameters
-levels = 5; k = 0.8; delta = 12;
+levels = 5; k = 0.8; delta = 3;
 
 % form the equal MSE step sizes
 steps = DWT_steps(levels,k)*delta;
 
 % set first rise for quantisation
-rise = steps*0.5;
+rise = steps*3;
 
 % perform the iterative DWT
 Y = DWT_iter(X,levels);
@@ -24,9 +24,9 @@ Z = IDWT_iter(Yq, levels);
 %%total_bits
 %%entropy_array
 %%avg_entropy = total_bits / 256 / 256
-%%compression_ratio = 2.2812e5 / total_bits
+compression_ratio = 2.2812e5 / total_bits
 
 % uncomment to output rms error
-%%error = std(X(:) - Z(:))
+error = std(X(:) - Z(:))
 
 end

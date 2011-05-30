@@ -2,8 +2,8 @@ function Z = DCT32pt(X)
 
 % set transform size and quantisation step size
 N = 32;
-stp = 24;
-rise = stp*0.5;
+stp = 9;
+rise = stp*1.5;
 
 % form transform matrix
 C = dctmat(N);

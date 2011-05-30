@@ -1,4 +1,4 @@
-function b=entropy2(x,step,rise)
+function b=entropy(x,step,rise)
 
 % function b=entropy(x,step)
 % Calculate the entropy in bits per element for the matrix x, assuming that x
@@ -22,44 +22,16 @@ maxx = max(max(x));
 
 if length(step) == 1,
   bins = [floor(minx/step):ceil(maxx/step)] * step;
-  firstbins = bins';
-  bins = quantise(bins, step, rise);
-  j = 1;
-  k = 0;
-  
-  [~,n]=size(bins);
-  
-  for i = 1 : n,
-      if bins(i) < 0,
-          newbins(j) = bins(i) + step/2;
-          j = j+1;
-      end
-      if bins(i) > 0,
-          newbins(j) = bins(i) - step/2;
-          j = j+1;
-      end
-      if bins(i) == 0,
-          k = k+1;
-      end          
-  end
-  
-  if k == n,
-      j = j+1;
-      newbins(1) = 0;
-  end
-  
-  bins = [newbins(1)-step, newbins, newbins(j-1) + step];
-  secondbins = bins';
 else
 % For speed, ignore steps that are outside the range of x.
   bins = step(find(step >= minx & step <= maxx));
 end
 
-% Calculate histogram of x in bins defined by bins.
+% Calculate histogram of x in bins defined by  bins.
 if bins==0 
    h=[]; s=[];
 else
-  [h,s] = histc(x(:),bins);
+  [h,s] = hist(x(:),bins);
 end
 
 % bar(s,h)

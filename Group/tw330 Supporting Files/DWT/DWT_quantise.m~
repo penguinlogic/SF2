@@ -22,7 +22,7 @@ end
 
 t = 1:m;
 Yq(t,t) = quantise(Yq(t,t),step(levels+1),rise(levels+1));             % low pass bit
-ent(1,levels+1) = entropy2(Yq(t,t),step(levels+1),rise(levels+1));
+ent(1,levels+1) = entropy(Yq(t,t),step(levels+1));
 
 bits = bits + m*m*(ent(1,levels+1));
 
