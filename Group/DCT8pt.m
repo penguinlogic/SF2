@@ -6,11 +6,11 @@ stp = 23;
 rise = 1*stp;
 
 % encode X
-Xe = DCT8ptenc(X,N,stp,rise);
+Yq = DCT8ptenc(X,N,stp,rise);
 
 
 % decode X
-Z = DCT8ptdec(Xe,N);
+Z = DCT8ptdec(Yq,N);
 
 % uncomment to output info about entropy, bit rates and CR
 DCTentropy(Yq,N,stp,rise);
