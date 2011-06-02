@@ -1,5 +1,4 @@
 function steps = DWT_steps(layers,k)
-% unfinished
 
 for i = 1:layers
    steps(i) = (k^(i-1)) / DWT_impulse(i); 
