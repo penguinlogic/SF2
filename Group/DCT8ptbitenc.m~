@@ -25,11 +25,32 @@ if N==8,
   scan=[scan 32 39 46 53 60 61 54 47 40 48 55 62 63 56 64];
 end
 
-% arbitrary N
-k = [2:N];
-
-if 
-
+if N ~= 8,
+    scan = [];
+    % scanning direction, (1 for up, 0 for down)
+    dir = 1;
+    for k = 2:2*N
+        dir = 1-dir;
+        if dir == 1
+           for row = k:-1:1
+               col = ((k+1)-row);
+               if row <= N && col <= N,
+                 scan = [scan (row*(N-1)+col)];
+               end
+           end
+        else
+            for col = k:-1:1
+                col = ((k+1)-row);
+                if row <= N && col <= N,
+                 scan = [scan (row*(N-1)+col)];
+               end
+            end
+        end
+        
+    end
+end
+    
+    
 % On the first pass use default huffman tables.
 disp('Generating huffcode and ehuf using default tables.')
 [bits, huffval] = huffdflt(1);  % Default tables.

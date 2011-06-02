@@ -1,19 +1,28 @@
 %layers = 5; k = 1; delta = 25;
 %DWT_full(X,layers,DWT_steps(layers,k)*delta);
 
-
-figure
-Z = peaks; surf(Z); 
-axis tight
-set(gca,'NextPlot','replacechildren');
-% Preallocate the struct array for the struct returned by getframe
-F(20) = struct('cdata',[],'colormap',[]);
-% Record the movie
-for j = 1:20 
-    surf(.01+sin(2*pi*j/20)*Z,Z)
-    F(j) = getframe;
-end
-
-
-movie(F,10)
-
+    scan = [];
+    % scanning direction, (1 for up, 0 for down)
+    dir = 0;
+    for k = 2:2*N
+        dir = 1-dir;
+        
+       
+        
+        if dir == 1
+           for row = k:-1:1
+               col = ((k+1)-row);
+               if row <= N && col <= N,
+                 scan = [scan ((row-1)*N+col)];  
+               end
+           end
+        else
+            for col = k:-1:1
+               row = ((k+1)-col);
+               if row <= N && col <= N,
+                 scan = [scan ((row-1)*N+col)];
+               end
+            end
+        end
+        
+    end
