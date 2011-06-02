@@ -5,17 +5,11 @@ N = 32;
 stp = 9;
 rise = stp*1.5;
 
-% form transform matrix
-C = dctmat(N);
+% encode X
+Yq = DCT32ptenc(X,N,stp,rise);
 
-% apply transform
-Y = colxfm(colxfm(X,C)',C)';
-
-%quantise 
-Yq = quantise(Y,stp,rise);
-
-% reconstruct the image to return
-Z = colxfm(colxfm(Yq',C')',C');
+% decode Yq
+Z = DCT32ptdec(Yq,N);
 
 % uncomment to output info about entropy and bit rates
 ent = DCTentropy(Yq,N,stp,rise);
