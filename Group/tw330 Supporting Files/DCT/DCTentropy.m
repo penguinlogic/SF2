@@ -29,5 +29,5 @@ end
 mean_ent = mean_ent / N / N;
 %simple_ent = entropy(Yr,stp);
 total_bits = mean_ent *H*N*W*N;
-compression_ratio = 2.2812e5 / total_bits
+%compression_ratio = 2.2812e5 / total_bits
 end
