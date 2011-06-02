@@ -9,23 +9,11 @@ steps = DWT_steps(levels,k)*delta;
 % set first rise for quantisation
 rise = steps*2;
 
-% perform the iterative DWT
-Y = DWT_iter(X,levels);
+% encode X
+[Yq, entropy_array, total_bits] = DWTgrpenc(X,levels,steps,rise);
 
-%Y(9:16,9:16) = 0;
-%Y(17:32,17:32) = 0;
-%Y(33:64,33:64) = 0;
-%Y(65:128,65:128) = 0;
-%Y(129:256,129:256) = 0;
-%draw(Y);
-
-% quantise the image (Yq) and get entropy and bit rate information
-[Yq entropy_array total_bits] = DWT_quantise(Y,levels,steps,rise);
-
-% reform the image to return
-Z = IDWT_iter(Yq, levels);
-
-
+% decode Yq
+Z = DWTgrpdec(Yq,levels);
 
 % uncomment to output entropy and bit rate information
 %%total_bits
