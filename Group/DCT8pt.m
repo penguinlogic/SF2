@@ -2,12 +2,11 @@ function Z = DCT8pt(X)
 
 % set transform size and quantisation step size
 N = 8;
-stp = 23;
+stp = 16;
 rise = 1*stp;
 
 % encode X
 Yq = DCT8ptenc(X,N,stp,rise);
-
 
 % decode X
 Z = DCT8ptdec(Yq,N);

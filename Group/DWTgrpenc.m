@@ -11,4 +11,7 @@ Y = DWT_iter(X,levels);
 %draw(Y);
 
 % quantise the image (Yq) and get entropy and bit rate information
-[Yq , entropy_array, total_bits] = DWT_quantise(Y,levels,steps,rise);
+[Yq , entropy_array, total_bits] = DWT_quant1(Y,levels,steps,rise);
+[Yq , entropy_array, total_bits] = DWT_quant2(Yq,levels,steps,rise);
+
+%[Yq , entropy_array, total_bits] = DWT_quantise(Y,levels,steps,rise);

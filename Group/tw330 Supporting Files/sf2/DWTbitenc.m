@@ -1,4 +1,4 @@
-function DWTbitenc(X,levels,steps,rise)
+function DWTbitenc(X,levels)
 
 % DWTbitenc.m
 
@@ -9,26 +9,20 @@ function DWTbitenc(X,levels,steps,rise)
 global ehuf      % Huffman code table.
 global huffhist  % Histogram of usage of huffman codewords.
 
-% DCT on input image X.
- %N = 8; % N now given as arg
- %C8=dctmat(N); % not needed for DWT
+% DWT on input image X.
  disp('Doing DWT'); Y = DWT_iter(X,levels);
 
+ 
+k = 0.8;
+delta = 4.5;
+steps = DWT_steps(levels, k) * delta;
+rise = steps*2;
 % Quantise to integers.
 %qstep = input('Quantiser step size = '); %steps recieved as arg
 %disp(['Quantising to step size = ' sprintf('%d',qstep)]); 
 %Yq=quant1(Y,steps,rise); %standard fn used for DCT
-Yq = DWT_quantise(Y,levels,steps,rise);
-
+[Yq,~,~] = DWT_quant1(Y,levels,steps,rise);
 sy=size(Yq);
-
-% Generate zig-zag scan of AC coefs.
-%if N==8,
-%  scan=[9 2 3 10 17 25 18 11 4 5 12 19 26 33 41 34 27 20 13 6];
-%  scan=[scan 7 14 21 28 35 42 49 57 50 43 36 29 22 15 8];
-%  scan=[scan 16 23 30 37 44 51 58 59 52 45 38 31 24];
-%  scan=[scan 32 39 46 53 60 61 54 47 40 48 55 62 63 56 64];
-%end
 
 % On the first pass use default huffman tables.
 disp('Generating huffcode and ehuf using default tables.')
@@ -40,7 +34,7 @@ scan = [];
 % scanning direction, (1 for up, 0 for down)
 dir = 0;
 
-N = 2^levels;
+N = 2^(levels);
 for k = 2:2*N
     dir = 1-dir;
         
@@ -73,10 +67,10 @@ for i = 0: N : sy(1)-N,
         yr = Yr(i+t,j+t);
         % Adjust the range (+/- 127) and no of bits (8) in the following line
         % of code if your quantised dc coefs are bigger or smaller than this.
-        if ((yr(1)<-127) | (yr(1)>128)),
+        if ((yr(1)<-1023) | (yr(1)>1024)),
             disp('DC coefficients too high');
         end
-        dccoef = [min(127,max(-127,yr(1)))+128  8]; 
+        dccoef = [min(1023,max(-1023,yr(1)))+1024 11]; 
         ra1 = runampl(yr(scan));
         vlc1 = [vlc1; dccoef; huffenc(ra1)]; % huffenc() uses ehuf and updates huffhist.
     end
@@ -92,7 +86,7 @@ bar(0:length(huffhist)-1, huffhist)
 title('Histogram of huffman code usage')
 drawnow
 
-save compress vlc bits huffval steps sy N scan
+save compress vlc bits huffval steps sy N scan levels
 
 % Return here if the default tables are sufficient, otherwise repeat the
 % encoding process using the custom designed huffman tables.
@@ -116,10 +110,10 @@ for i = 0: N : sy(1)-N,
         yr = Yr(i+t,j+t);
         % Adjust the range (+/- 127) and no of bits (8) in the following line
         % of code if your quantised dc coefs are bigger or smaller than this.
-        if ((yr(1)<-127) | (yr(1)>128)),
+        if ((yr(1)<-1023) | (yr(1)>1024)),
             disp('DC coefficients too high');
         end
-        dccoef = [min(127,max(-127,yr(1)))+128  8]; 
+        dccoef = [min(1023,max(-1023,yr(1)))+1024  11]; 
         ra1 = runampl(yr(scan));
         vlc1 = [vlc1; dccoef; huffenc(ra1)]; % huffenc() uses ehuf and updates huffhist.
     end
@@ -129,5 +123,5 @@ disp('Coding done')
 
 fprintf(1,'No. of bits for coded image with custom tables = %d\n', sum(vlc(:,2)))
 
-save compress vlc bits huffval steps sy N scan
+save compress vlc bits huffval steps sy N scan levels
 

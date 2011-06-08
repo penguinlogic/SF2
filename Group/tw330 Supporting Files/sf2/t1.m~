@@ -1,9 +1,0 @@
-function [Xf] = t1(X,h)
-
-N = size(X);
-
-for i = 1:N(1)
-    Xf(i,:) = conv(X(i,:),h);
-end
-
-end

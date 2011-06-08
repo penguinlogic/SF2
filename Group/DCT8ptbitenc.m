@@ -1,4 +1,4 @@
-function DCT8ptbitenc(X,N,stp,rise)
+function Yquant1=DCT8ptbitenc(X,N,stp,rise)
 % DCT8ptbitenc.M
 
 % These global variables are needed by function HUFFENC 
@@ -14,7 +14,7 @@ global huffhist  % Histogram of usage of huffman codewords.
 
 % Quantise to integers.
 Yq=quant1(Y,stp,rise);
-
+Yquant1=Yq;
 sy=size(Yq);
 
 % Generate zig-zag scan of AC coefs.

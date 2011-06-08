@@ -44,6 +44,6 @@ ra=[diff([0;b])-1 ca c];
 ra = [ra; [0 0 0]];
 
 % If last element of a(:) is zero, add end-of-block code (0,0,0)
-% if a(length(a(:))) == 0,
-%   ra = [ra; [0 0 0]];
-% end
+ %if a(length(a(:))) == 0,
+ %  ra = [ra; [0 0 0]];
+ %end
