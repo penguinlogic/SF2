@@ -1,7 +1,8 @@
-function Zi = DCTfinaldec(vlc, huffval, bits, sy, N,stp, rise)
+function Zi = DCTfinaldechi(vlc, huffval, bits, sy, N, stp, rise)
 
 % Generate zig-zag scan of AC coefs.
 scan = [];
+scan(1,1) = 1; % include DC coeff
 % scanning direction, (1 for up, 0 for down)
 dir = 0;
 for k = 2:2*N
@@ -55,12 +56,12 @@ for r=0:N:(sy(1)-N),
 % Decode DC coef.
 % Adjust the following 6 lines of code if the no of bits for
 % the dc coef in JPEGENC was altered.
-    if vlc(i,2) ~= 8, 
-      fprintf(1,'Error: DC wordlength = %d at i = %d\n', vlc(1,2), i);
-    end
+    %if vlc(i,2) ~= 8, 
+    %  fprintf(1,'Error: DC wordlength = %d at i = %d\n', vlc(1,2), i);
+    %end
     cf = 1;
-    yq(cf) = vlc(i,1) - 128;
-    i = i + 1;
+    yq(cf) = 0;%vlc(i,1) - 128;
+    %i = i + 1;
 
 % Loop for each non-zero AC coef.
     while any(vlc(i,:) ~= eob),
@@ -98,8 +99,7 @@ for r=0:N:(sy(1)-N),
   end
 end
 
-Z=quant2(Zq,stp/2,rise/2);
-%Z(1:128,1:128) = quant2(Zq(1:128,1:128),stp/2,rise/2);
+Z=quant2(Zq,stp,rise);
 
 
 C8=dctmat(N);
